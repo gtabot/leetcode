@@ -60,7 +60,6 @@ from typing import List
 
 def mostBooked(n: int, meetings: List[List[int]]) -> int:
     meetings.sort()  # Sort meetings
-
     available_rooms = list(range(n))
     occupied_rooms = []
     booked_counts = [0] * n
