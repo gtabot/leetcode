@@ -120,3 +120,5 @@ print("All test cases passed!")
 Time Complexity: O(1) for get and put operations
 Space Complexity: O(n) where n is the capacity of the cache
 """
+
+# Previous: 146-lru-cache.py
