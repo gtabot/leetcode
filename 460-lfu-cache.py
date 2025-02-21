@@ -63,11 +63,9 @@ class LFUCache:
         self.capacity = capacity
         self.key_to_value = {}  # {key -> (value, count)}
         # Use a dictionary of OrderedDicts to keep track of the order of keys for each count
-        self.count_to_keys = defaultdict(
-            OrderedDict
-        )  # {count -> OrderedDict[key -> value]}
-        # Save the minimum count for quick access
-        self.min_count = 0
+        # {count -> OrderedDict[key -> value]}
+        self.count_to_keys = defaultdict(OrderedDict)
+        self.min_count = 0  # Save the minimum count for quick access
 
     def get(self, key: int) -> int:
         if not key in self.key_to_value:
@@ -76,38 +74,27 @@ class LFUCache:
         return self.key_to_value[key][0]  # Return the value
 
     def put(self, key: int, value: int) -> None:
-        # If the key exists
-        if key in self.key_to_value:
-            # Increment the count(s)
-            count = self.increment_counts(key)
-            # Update the value/new count
-            self.key_to_value[key] = (value, count)
+        if key in self.key_to_value:  # If the key exists
+            count = self.increment_counts(key)  # Increment the count(s)
+            self.key_to_value[key] = (value, count)  # Update the value/new count
             return
-        # If the cache is full
-        if len(self.key_to_value.values()) >= self.capacity:
+        if len(self.key_to_value.values()) >= self.capacity:  # If the cache is full
             # Remove the least recently used key
             remove_key, _ = self.count_to_keys[self.min_count].popitem(last=False)
             self.key_to_value.pop(remove_key)
-        # Add the new key/value/count to the cache
-        self.key_to_value[key] = (value, 1)
+        self.key_to_value[key] = (value, 1)  # Add the new key/value/count to the cache
         self.count_to_keys[1][key] = value
-        # Set the new minimum count
-        self.min_count = 1
+        self.min_count = 1  # Set the new minimum count
 
     def increment_counts(self, key: int) -> None:
-        # Get the value and count
-        value, count = self.key_to_value[key]
-        # Remove the key from the current count
-        self.count_to_keys[count].pop(key)
-        # Add the key to the next count
-        self.count_to_keys[count + 1][key] = value
-        # Update the value/new count
-        self.key_to_value[key] = (value, count + 1)
+        value, count = self.key_to_value[key]  # Get the value and count
+        self.count_to_keys[count].pop(key)  # Remove the key from the current count
+        self.count_to_keys[count + 1][key] = value  # Add the key to the next count
+        self.key_to_value[key] = (value, count + 1)  # Update the value/new count
         # If the current count is the minimum and there are no keys with that count, update the minimum count
         if count == self.min_count and len(self.count_to_keys[count]) == 0:
             self.min_count = count + 1
-        # Return the new count
-        return count + 1
+        return count + 1  # Return the new count
 
 
 """

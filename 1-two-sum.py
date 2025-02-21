@@ -38,8 +38,7 @@ from typing import List
 
 
 def two_sum(nums: List[int], target: int) -> List[int]:
-    # Create a dictionary to store the numbers and their indices
-    num_to_index = {}
+    num_to_index = {}  # Create a dictionary to store the numbers and their indices
     for idx, num in enumerate(nums):
         # If the complement of the current number is in the dictionary, return the indices
         if target - num in num_to_index:

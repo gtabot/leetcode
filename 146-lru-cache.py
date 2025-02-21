@@ -48,8 +48,7 @@ class LRUCache:
 
     def __init__(self, capacity: int):
         self.capacity = capacity
-        # Use OrderedDict to maintain order of keys
-        self.cache = OrderedDict()
+        self.cache = OrderedDict()  # Use OrderedDict to maintain order of keys
 
     def get(self, key: int) -> int:
         if key not in self.cache:
@@ -62,8 +61,7 @@ class LRUCache:
         if key in self.cache:
             # Move the key to the end of the cache to indicate its recent use
             self.cache.move_to_end(key)
-        # Always update the key
-        self.cache[key] = value
+        self.cache[key] = value  # Always update the key
         if len(self.cache) > self.capacity:
             # Remove the first item in the OrderedDict to get under capacity
             self.cache.popitem(last=False)

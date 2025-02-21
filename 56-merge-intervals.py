@@ -30,16 +30,13 @@ from typing import List
 
 
 def merge(intervals: List[List[int]]) -> List[List[int]]:
-    # Sort intervals
-    intervals.sort()
-    # Initialize result with first interval
-    result = [intervals[0]]
+    intervals.sort()  # Sort intervals
+    result = [intervals[0]]  # Initialize result with first interval
     for current in intervals[1:]:
         # If current interval does not overlap with last interval
         if current[0] > result[-1][1]:
             result.append(current)
-        # If current interval overlaps with last interval
-        else:
+        else:  # If current interval overlaps with last interval
             # Update last interval end time to max of end times of both intervals
             result[-1][1] = max(current[1], result[-1][1])
     return result

@@ -28,20 +28,17 @@ from typing import List
 
 def minMeetingRooms(intervals: List[List[int]]) -> int:
     max_rooms = 0
-    rooms_needed = 0
-    # Sort the starts and ends of the intervals
+    rooms_needed = 0  # Sort the starts and ends of the intervals
     starts = sorted([x[0] for x in intervals])
     ends = sorted([x[1] for x in intervals])
     s, e = 0, 0
     # Iterate through intervals between start and end times
     while s < len(intervals) and e < len(intervals):
-        # If a start is before the next end, we need a new room
-        if starts[s] < ends[e]:
+        if starts[s] < ends[e]:  # If a start is before the next end, we need a new room
             rooms_needed += 1
             max_rooms = max(rooms_needed, max_rooms)
             s += 1
-        # If a start is after the next end, we can free up a room
-        else:
+        else:  # If a start is after the next end, we can free up a room
             rooms_needed -= 1
             e += 1
     return max_rooms

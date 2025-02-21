@@ -42,15 +42,12 @@ def intervalIntersection(
 ) -> List[List[int]]:
     result = []
     i, j = 0, 0  # Pointers for firstList and secondList
-    # Iterate through both lists
-    while i < len(firstList) and j < len(secondList):
+    while i < len(firstList) and j < len(secondList):  # Iterate through both lists
         max_start = max(firstList[i][0], secondList[j][0])
         min_end = min(firstList[i][1], secondList[j][1])
-        # An intersection occurs if a start is before an end
-        if max_start <= min_end:
+        if max_start <= min_end:  # An intersection occurs if a start is before an end
             result.append([max_start, min_end])
-        # Move pointer of list that ends first
-        if firstList[i][1] <= secondList[j][1]:
+        if firstList[i][1] <= secondList[j][1]:  # Move pointer of list that ends first
             i += 1
         else:
             j += 1

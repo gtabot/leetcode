@@ -38,18 +38,14 @@ def fourSum(nums: List[int], target: int) -> List[List[int]]:
 
 
 def kSum(k, nums: List[int], target: int) -> List[List[int]]:
-    # Sort the array to make it easier to find duplicates
-    nums.sort()
-    # Base case: if k is 2, use twoSum function
-    if k == 2:
+    nums.sort()  # Sort the array to make it easier to find duplicates
+    if k == 2:  # Base case: if k is 2, use twoSum function
         return twoSum(nums, target)
-    # Store results in a set to avoid duplicates
-    result = set()
+    result = set()  # Store results in a set to avoid duplicates
     for idx, n in enumerate(nums):
         # Recursively call kSum with k-1, nums[idx + 1 :], and target - n
         tuples = kSum(k - 1, nums[idx + 1 :], target - n)
-        # Combine n with the tuples returned by kSum
-        for tup in tuples:
+        for tup in tuples:  # Combine n with the tuples returned by kSum
             result.add((n,) + tup)
     return list(result)
 

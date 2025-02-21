@@ -50,10 +50,8 @@ def insert(intervals: List[List[int]], newInterval: List[int]) -> List[List[int]
         newInterval[0] = min(intervals[i][0], newInterval[0])
         newInterval[1] = max(intervals[i][1], newInterval[1])
         i += 1  # Move to next interval
-    # Add merged newInterval to result
-    result.append(newInterval)
-    # Add all intervals after newInterval
-    while i < n:
+    result.append(newInterval)  # Add merged newInterval to result
+    while i < n:  # Add all intervals after newInterval
         result.append(intervals[i])
         i += 1
     return result

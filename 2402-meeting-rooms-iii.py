@@ -59,17 +59,15 @@ from typing import List
 
 
 def mostBooked(n: int, meetings: List[List[int]]) -> int:
-    # Sort meetings
-    meetings.sort()
-    # Initialize available/occupied rooms and booked counts
+    meetings.sort()  # Sort meetings
+
     available_rooms = list(range(n))
     occupied_rooms = []
     booked_counts = [0] * n
     # Heapify available/occupied rooms to keep track of the smallest room/earliest end time
     heapq.heapify(available_rooms)
     heapq.heapify(occupied_rooms)
-    # Iterate through meeting times
-    for start_time, end_time in meetings:
+    for start_time, end_time in meetings:  # Iterate through meeting times
         # Free up rooms that have ended before the current meeting
         while occupied_rooms and occupied_rooms[0][0] <= start_time:
             _, room = heapq.heappop(occupied_rooms)

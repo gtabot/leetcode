@@ -41,12 +41,10 @@ from typing import List
 def threeSum(nums: List[int]) -> List[List[int]]:
     nums.sort()
     result = set()
-    for idx, n in enumerate(nums):
-        # For each n, find pairs in remaining that equal -n
+    for idx, n in enumerate(nums):  # For each n, find pairs in remaining that equal -n
         two_sums = twoSumTarget(nums[idx + 1 :], -n)
         for p, q in two_sums:
-            # Add n and two sum pair to result
-            result.add((n, p, q))
+            result.add((n, p, q))  # Add n and two sum pair to result
     return list(result)
 
 
